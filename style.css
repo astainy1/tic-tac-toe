@@ -7,6 +7,7 @@ html, body, *{
 :root{
     --secondary-background-color: #00b064;
     --primary-background-color: #ddd;
+    /* --primary-bg-hover: #9afce9; */
     --primary-bg-hover: #45f5a8;
     --border-color: #099665;
     --font-size: 1.4rem;
@@ -83,6 +84,11 @@ h3{
     text-align: center;
     /* padding: 30px; */
     background-color: var(--primary-background-color);
+}
+
+.cells_container div:hover{
+    background: var(--primary-bg-hover);
+    border-radius: 10px;
 }
 
 #playBtn{
