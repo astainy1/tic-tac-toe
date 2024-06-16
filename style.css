@@ -1,0 +1,105 @@
+html, body, *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --secondary-background-color: #00b064;
+    --primary-background-color: #ddd;
+    --primary-bg-hover: #45f5a8;
+    --border-color: #099665;
+    --font-size: 1.4rem;
+    --primary-color: #00170f;
+    --secondary-color: #404040; 
+}
+
+body{
+    font-family: 'poppins', sans-serif;
+    font-size: 1rem;
+    background: var(--primary-background-color);
+}
+
+.overall_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h3{
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 13px;
+    margin-bottom: 25px;
+}
+
+.players_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+#player1, #player2{
+    font-size: 1.5rem;
+}
+
+#player1Point, #player2Point{
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    text-align: center;
+}
+.cells_container{
+    
+    min-width: 320px;
+    height: 320px;
+    border-radius: 10px;
+    background: var(--secondary-background-color);
+    display: grid;
+    grid-template-columns: repeat(3, 130px);
+    grid-template-rows: repeat(3, 100px);
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: .5em
+    
+}
+
+.cells_container > div{
+    text-align: center;
+    /* padding: 30px; */
+    background-color: var(--primary-background-color);
+}
+
+#playBtn{
+    border: none;
+    background: var(--secondary-background-color);
+    font-size: 1.8rem;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-top: 20px;
+    color: var(--primary-color);
+    transition: all;
+}
+
+#playBtn:hover{
+    transform: translateY(3px);
+    box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.1);
+
+}
