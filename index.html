@@ -5,46 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Style sheet -->
      <link rel="stylesheet" href="style.css">
+     <!-- Font awesome link -->
+      <link rel="stylesheet" href="./font-awesome 4.7.0/css/font-awesome.min.css">
+      <!-- External font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Tic Tac Toe Game</title>
 </head>
 <body>
 
     <section class="overall_container">
         <header>
-            <h3>  Tac Tac Toe Game</h3>
-            
+            <h3>  Tic Tac Toe Game</h3>
+
             <section class="players_container">
                 <div>
                     <p id="player1">Player 1</p>
                     <span id="player1Point">2 pts</span>
                 </div>
 
-                <div>
+                <!-- <div>
                     <p id="player2">Player 2</p>
                     <span id="player2Point">3 pts</span>
-                </div>
+                </div> -->
                 
             </section>
         </header>
         <main class="main_container">
-            <section class="cells_container">
-                <div class="1">1</div>
-                <div class="2">2</div>
-                <div class="3">3</div>
-                <div class="4">4</div>
-                <div class="5">5</div>
-                <div class="6">6</div>
-                <div class="7">7</div>
-                <div class="8">8</div>
-                <div class="9">9</div>
+            <section class="cells_container" id="playBoard">
+                <div class="row">
+                    <div class="cell numb1" data-cell id="1"></div>
+                    <div class="cell numb2" data-cell id="2"></div>
+                    <div class="cell numb3" data-cell id="3"></div>
+                </div>
+                <div class="row">
+                    <div class="cell numb4" data-cell id="4"></div>
+                    <div class="cell numb5" data-cell id="5"></div>
+                    <div class="cell numb6" data-cell id="6"></div>
+                </div>
+                <div class="row">
+                    <div class="cell numb7" data-cell id="7"></div>
+                    <div class="cell numb8" data-cell id="8"></div>
+                    <div class="cell numb9" data-cell id="9"></div>
+                </div>
+                
             </section>
             <section>
-                <button id="playBtn">Play</button>
-                <!-- <button id="playBtn">Reset</button> -->
+                <!-- <button id="playBtn">Play</button> -->
+                 <div class="popup_container" id="popupModal">
+                    <div><i class="fa fa-award"></i></div>
+                    <h2>Congratulations!</h2>
+                    <p id="popup_message">Player X or Player Y won.</p>
+                    <button id="playAgainBtn">Play again?</button>
+                 </div>
+                 <button id="resetBtn">Reset</button>
             </section>
         </main>
+        <section class="over_lay" id="overLay"></section>
     </section>
-
-  <script src="script.js"></script>
+</body>
+<script src="script.js"></script>
+<script src="https://kit.fontawesome.com/cd31aca100.js" crossorigin="anonymous"></script>
 </body>
 </html>
