@@ -1,97 +1,186 @@
+//Script starts
 
-let player1 = document.getElementById('player1');
+//Test connection
+// alert("Hello world")
+
+
+/*
+Algorithm for Tic Tac Toe Game
+
+1. Initialize the Game Board:
+    a. Create a 3x3 grid to represent the game board.
+    b. Initialize each cell of the grid to be empty.
+
+2. Define Players:
+    a. Define two players, Player 1 (X) and Player 2 (O).
+    b. Set the current player to Player 1 initially.
+
+3. Setup Game Interface:
+    a. Create an HTML structure to display the game board.
+    b. Add event listeners to each cell to handle player moves.
+
+4. Handle Player Moves:
+    a. When a cell is clicked, check if it is empty.
+    b. If the cell is empty, place the current player's symbol (X or O) in the cell.
+
+5. Update the game board to reflect the move.
+    a. Check for a Win or Draw:
+    b. After each move, check if the current player has won the game.
+
+6. To check for a win, verify if any row, column, or diagonal contains the same symbol.
+    a. If a player wins, display a message and end the game.
+    b. If all cells are filled and no player has won, declare a draw.
+
+7. Switch Players:
+    a. If the game is not over, switch to the other player.
+    b. Reset the Game:
+    c. Provide a way to reset the game (e.g., a reset button).
+    d. When the game is reset, clear the game board and set the current player to Player 1.
+
+*/
+
+//Get reference to all HTML elementjs
+    //Get player and player points
+let showTurn = document.getElementById('player1');
+// let player1Point = document.getElementById('player1Point');
 let player2 = document.getElementById('player2');
+// let player2Point = document.getElementById('player2Point');
 
-let cells = document.querySelectorAll('[data-cell]');
-let resetBtn = document.getElementById('resetBtn');
-let playAgainBtn = document.getElementById('playAgainBtn');
-let popupModal = document.getElementById('popupModal');
-let overLay = document.getElementById('overLay');
-let endMessage = document.getElementById('popup_message');
+    //Get other useful elements
+let cells = document.querySelectorAll('[data-cell]'); //Game baord
+let resetBtn = document.getElementById('resetBtn'); //Reset button
+let playAgainBtn = document.getElementById('playAgainBtn');//Play Again button
+let popupModal = document.getElementById('popupModal'); //Pop up container
+let overLay = document.getElementById('overLay'); //Overlay container
+let endMessage = document.getElementById('popup_message'); //End message
 
 let cellRow = document.getElementById('row');
 
+// Define players
 let playerX = 'X';
 let playerO = 'O';
 let currentPlayer = playerX;
-let isPlaying = true;
+let isPlaying = false;
 
-let gameBoard = ['', '', '', '', '', '', '', '', ''];
+let gameBoard = ['', '', '', '', '', '', '', '', '']
+console.log(gameBoard)
 
-const winningCombination = [
+//Winning combination
+const winningCombinaiton = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
     [0, 3, 6],
     [1, 4, 7],
     [2, 5, 8],
-    [0, 4, 8], // Diagonal
+    [0, 4, 8], //Diagonal
     [2, 4, 6]
-];
+]
 
-// Get the click of cell
-cells.forEach(cell => cell.addEventListener('click', handleClickCell, { once: true }));
+console.log(cells)
 
-// Function to handle the click of cell
-function handleClickCell(event) {
-    const cell = event.target;
+//add event listeners to each cell to handle player moves.
+ //loop over each cell and add evenListener
+cells.forEach(cell => cell.addEventListener('click', handleClick, {once : true}))
+
+//Handle click function
+function handleClick(e){
+
+    const cell = e.target;
+    // console.log(Array.from(cells).indexOf(cell))
     const cellIndex = Array.from(cells).indexOf(cell);
 
-    if (cell.innerHTML === '' && isPlaying) {
-        cell.innerHTML = currentPlayer;
+    if(cell.innerHTML === ''){
+        
+        cell.textContent = currentPlayer;
         gameBoard[cellIndex] = currentPlayer;
+
+        //Invoke check winner
         checkWinner();
     }
+
+    //Invoke switch player function
+    // switchPlayer();
+
 }
 
-// Handle current player
+//Function to switch player
 function switchPlayer() {
+
     currentPlayer = currentPlayer === playerX ? playerO : playerX;
-    player1.innerHTML = `${currentPlayer}'s Turn`;
+    showTurn.textContent = `Player ${currentPlayer}'s Turn`;
+
 }
 
-// Function to check winner
+//Function to check for win
 function checkWinner() {
-    let won = false;
+    let fleg = false;
 
-    for (let i = 0; i < winningCombination.length; i++) {
-        const [a, b, c] = winningCombination[i];
-        let cellA = gameBoard[a];
-        let cellB = gameBoard[b];
-        let cellC = gameBoard[c];
+    for (let i = 0; i < winningCombinaiton.length; i++) {
 
-        if (cellA === '' || cellB === '' || cellC === '') {
-            continue;
+        const winElements = winningCombinaiton[i];
+        const cellA = gameBoard[winElements[0]];
+        const cellB = gameBoard[winElements[1]];
+        const cellC = gameBoard[winElements[2]]; 
+
+        if(cellA === '' || cellB === '' || cellC === ''){
+            continue
         }
-        if (cellA === cellB && cellB === cellC) {
-            won = true;
-            break;
+
+        if(cellA === cellB && cellB === cellC){
+
+            fleg = true;
+            // console.log('Loop break')
+            break
         }
+        
     }
 
-    if (won) {
-        player2.innerHTML = `${currentPlayer} wins!`;
+    if(fleg){
+
+        endMessage.innerHTML = `<h2> Congratulations! </h2> <br> Player ${currentPlayer} Wins!`;
         isPlaying = false;
-    } else if (!gameBoard.includes('')) {
-        player2.innerHTML = 'Game Draw!';
+        popUpModal();
+
+    } else if(!gameBoard.includes('')){
+
+        endMessage.innerHTML= `<h2>Oops!</h2> <br> <strong> Game Draw! </strong>`;
         isPlaying = false;
-    } else {
+        popUpModal()
+
+    }else{
         switchPlayer();
     }
+
 }
 
-// Reset the game (Add event listeners for reset and play again buttons)
-resetBtn.addEventListener('click', resetGame);
-playAgainBtn.addEventListener('click', resetGame);
-
-function resetGame() {
-    gameBoard = ['', '', '', '', '', '', '', '', ''];
+//Reset Playing Board
+function resetBoard(){
+   gameBoard = ['', '', '', '', '', '', '', '', ''];
     cells.forEach(cell => {
         cell.innerHTML = '';
-        cell.addEventListener('click', handleClickCell, { once: true });
-    });
+        cell.addEventListener('click', handleClick, {once : true});
+    })
+
     currentPlayer = playerX;
-    player1.innerHTML = `${currentPlayer}'s Turn`;
-    player2.innerHTML = '';
+    showTurn.textContent = `Player ${playerX}'s Turn`;
     isPlaying = true;
 }
+
+//temporary function for play again button
+function playAgain() {
+    resetBoard()
+    popupModal.classList.remove('modal');
+    overLay.classList.remove('overlay')
+}
+
+//Temporary function for reset button
+function popUpModal() {
+
+    popupModal.classList.add('modal');
+    overLay.classList.add('overlay');
+    resetBoard()
+}
+
+playAgainBtn.addEventListener('click', playAgain);
+resetBtn.addEventListener('click', resetBoard);
